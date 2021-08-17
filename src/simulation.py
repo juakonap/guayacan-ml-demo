@@ -55,7 +55,7 @@ df2 = df2\
     .dropna(how = 'any')\
         .rename(columns={0:'date'})
 
-df2.to_csv('./data/predict.csv', sep = ';', decimal = ',', index = False)
+df2.to_csv('./data/predict.csv', sep = ',', decimal = '.', index = False)
 
 
 #Serie de datos para calcular correlacion
