@@ -1,6 +1,6 @@
 import datetime
 import pandas as pd
-from numpy import random
+from numpy import random as ran
 import random
 
 
@@ -60,14 +60,32 @@ df2.to_csv('./data/predict.csv', sep = ',', decimal = '.', index = False)
 
 #Serie de datos para calcular correlacion
 n_data = 100
-c1 = list(random.exponential(scale=1.0, size=n_data))
-c2 = list(random.exponential(scale=2.0, size=n_data))
-c3 = list(random.normal(loc=2.0, scale=1.5, size=n_data))
-c4 = list(random.normal(loc=10.0, scale=5.0, size=n_data))
-c5 = list(random.normal(loc=15.0, scale=2.5, size=n_data))
+c1 = list(ran.exponential(scale=1.0, size=n_data))
+c2 = list(ran.exponential(scale=2.0, size=n_data))
+c3 = list(ran.normal(loc=2.0, scale=1.5, size=n_data))
+c4 = list(ran.normal(loc=10.0, scale=5.0, size=n_data))
+c5 = list(ran.normal(loc=15.0, scale=2.5, size=n_data))
 
 df3 = pd.DataFrame([c1,c2,c3,c4,c5]).T\
     .rename(columns={0:'Sensor 01',1:'Sensor 02',2:'Sensor 03',3:'Sensor 04',4:'Sensor 05'})
 
 df3.corr().to_csv('./data/corr.csv', sep = ',', decimal = '.', index = True)
+
+#Serie de datos apilada
+
+stk = random.sample(range(200, 200 + len(date_format)), len(date_format))
+stacked = [random.random() + float(x) for x in stk]
+
+
+df4 = pd.DataFrame(date_format)
+df4['stacked1'] = pd.Series(stacked).rolling(14).mean()
+df4['stacked2'] = [df4['stacked1'].ra]
+df4['stacked3'] = 
+
+
+df4 = df4\
+    .dropna(how = 'any')\
+        .rename(columns={0:'date'})
+    
+df4.to_csv('./data/stacked.csv', sep = ';', decimal = ',', index = False)
 
