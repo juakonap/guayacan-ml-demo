@@ -79,13 +79,13 @@ stacked = [random.random() + float(x) for x in stk]
 
 df4 = pd.DataFrame(date_format)
 df4['stacked1'] = pd.Series(stacked).rolling(14).mean()
-df4['stacked2'] = [df4['stacked1'].ra]
-df4['stacked3'] = 
+df4['stacked2'] = pd.Series([x*(1+random.random()) for x in df4['stacked1']]).rolling(14).mean()
+df4['stacked3'] =pd.Series([x*(1-random.random()) for x in df4['stacked1']]).rolling(14).mean()
 
 
 df4 = df4\
     .dropna(how = 'any')\
         .rename(columns={0:'date'})
     
-df4.to_csv('./data/stacked.csv', sep = ';', decimal = ',', index = False)
+df4.to_csv('./data/stacked.csv', sep = ',', decimal = '.', index = False)
 
