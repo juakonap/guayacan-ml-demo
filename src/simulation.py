@@ -94,6 +94,6 @@ df4.to_csv(f'./data/{nombre_equipo}_stacked.csv', sep = ',', decimal = '.', inde
 '''
 df1.to_csv('./data/series_f2.csv', sep = ',', decimal = '.', index = False)
 df2.to_csv('./data/predict_f2.csv', sep = ',', decimal = '.', index = False)
-df3.corr().to_csv('./data/corr_f2.csv', sep = ',', decimal = '.', index = True)
+df3.corr().to_csv('./data/corr.csv', sep = ',', decimal = '.', index = True)
 df4.to_csv('./data/stacked_f2.csv', sep = ',', decimal = '.', index = False)
 
