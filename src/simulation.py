@@ -96,7 +96,7 @@ df2.to_csv('./data/predict_f1.csv', sep = ',', decimal = '.', index = False)
 
 
 df2 = pd.DataFrame(date_format_f2)
-df2['original'] = pd.Series(random.sample(range(minimos[4], minimos[4] + len(date_format_f2)), len(date_format_f2)-300) + random.sample(range(minimos[5], minimos[5] + len(date_format_f2)), len(date_format_f2) - 308)).rolling(7).mean()
+df2['original'] = pd.Series(random.sample(range(minimos[4], minimos[4] + len(date_format_f2)), int(len(date_format_f2)*.5)) + random.sample(range(minimos[5], minimos[5] + len(date_format_f2)), int(len(date_format_f2)*.5))).rolling(7).mean()
 df2['predict'] = pd.Series([random.random()*100 + float(x) for x in df2['original']]).rolling(7).mean()
 
 df2 = df2\
