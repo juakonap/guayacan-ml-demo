@@ -4,9 +4,10 @@ from numpy import random as ran
 import random
 
 
-start = datetime.datetime.strptime("01-01-2020", "%d-%m-%Y")
+start = datetime.datetime.strptime("01-01-2015", "%d-%m-%Y")
 end = datetime.datetime.strptime("31-08-2021", "%d-%m-%Y")
-date_generated = [start + datetime.timedelta(days=x) for x in range(0, (end-start).days)]
+date_generated = [start + datetime.timedelta(days=x) for x in range((end-start).days + 1) if (start + datetime.timedelta(days=x)).weekday() == 6]
+#date_generated = [start + datetime.timedelta(days=x) for x in range(0, (end-start).days)]
 date_format_f1 = []
 date_format_f2 = []
 
@@ -83,7 +84,7 @@ df1.to_csv('./data/series_f2.csv', sep = ',', decimal = '.', index = False)
 
 #Serie de datos para predicción
 df2 = pd.DataFrame(date_format_f1)
-df2['original'] = pd.Series(random.sample(range(minimos[4], minimos[4] + len(date_format_f1)), len(date_format_f1)-300) + random.sample(range(minimos[5], minimos[5] + len(date_format_f1)), len(date_format_f1) - 308)).rolling(7).mean()
+df2['original'] = pd.Series(random.sample(range(minimos[4], minimos[4] + len(date_format_f1)), int(len(date_format_f1)*.5)) + random.sample(range(minimos[5], minimos[5] + len(date_format_f1)), int(len(date_format_f1)*.5))).rolling(7).mean()
 df2['predict'] = pd.Series([random.random()*100 + float(x) for x in df2['original']]).rolling(7).mean()
 
 df2 = df2\
@@ -154,3 +155,5 @@ df4 = df4\
         .rename(columns={0:'date'})
     
 df4.to_csv('./data/stacked_f2.csv', sep = ',', decimal = '.', index = False)
+
+
