@@ -2,6 +2,7 @@ import datetime
 import pandas as pd
 from numpy import random as ran
 import random
+from operator import add
 
 
 start = datetime.datetime.strptime("01-01-2015", "%d-%m-%Y")
@@ -13,7 +14,7 @@ date_format = []
 for date in date_generated:
     date_format.append(date.strftime("%Y-%m-%d"))
 
-nombre_equipo = 'equipo_03'
+#nombre_equipo = 'equipo_03'
 
 #Serie de datos simulada
 n = len(date_format)
@@ -62,8 +63,8 @@ df2 = df2\
 n_data = 100
 c1 = list(ran.exponential(scale=1.0, size=n_data))
 c2 = list(ran.exponential(scale=2.0, size=n_data))
-c3 = list(ran.normal(loc=2.0, scale=1.5, size=n_data))
-c4 = list(ran.normal(loc=10.0, scale=5.0, size=n_data))
+c3 = list( map(add, list(ran.normal(loc=2.0, scale=1.5, size=n_data)), list([2+5*x for x in range(n_data)])) )
+c4 = list( map(add, list(ran.normal(loc=2.0, scale=1.5, size=n_data)), list([12+2*x for x in range(n_data)])) )
 c5 = list(ran.normal(loc=15.0, scale=2.5, size=n_data))
 
 df3 = pd.DataFrame([c1,c2,c3,c4,c5]).T\
@@ -85,11 +86,14 @@ df4 = df4\
     .dropna(how = 'any')\
         .rename(columns={0:'date'})
     
-    
- 
+'''
 df1.to_csv(f'./data/{nombre_equipo}_series.csv', sep = ',', decimal = '.', index = False)
 df2.to_csv(f'./data/{nombre_equipo}_predict.csv', sep = ',', decimal = '.', index = False)
 df3.corr().to_csv(f'./data/{nombre_equipo}_corr.csv', sep = ',', decimal = '.', index = True)
 df4.to_csv(f'./data/{nombre_equipo}_stacked.csv', sep = ',', decimal = '.', index = False)
-
+'''
+df1.to_csv('./data/series_f2.csv', sep = ',', decimal = '.', index = False)
+df2.to_csv('./data/predict_f2.csv', sep = ',', decimal = '.', index = False)
+df3.corr().to_csv('./data/corr_f2.csv', sep = ',', decimal = '.', index = True)
+df4.to_csv('./data/stacked_f2.csv', sep = ',', decimal = '.', index = False)
 
